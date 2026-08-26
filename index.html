@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Ritual do Número Mestre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- VTurb: preload/perf (fornecido pelo painel VTurb) -->
+<script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+<link rel="preload" href="https://scripts.converteai.net/19ce3560-1531-4a62-b2a5-04a5634b39fc/players/6a8e530735870754625000c8/v4/player.js" as="script">
+<link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+<link rel="preload" href="https://cdn.converteai.net/19ce3560-1531-4a62-b2a5-04a5634b39fc/6a8e52f70902612aa8e6d7d2/main.m3u8" as="fetch">
+<link rel="dns-prefetch" href="https://cdn.converteai.net">
+<link rel="dns-prefetch" href="https://scripts.converteai.net">
+<link rel="dns-prefetch" href="https://images.converteai.net">
+<link rel="dns-prefetch" href="https://license.vturb.com">
+
+<style>
+  :root{
+    --amber:#ca8a04;
+    --amber-track:rgba(202,138,4,.14);
+    --ink:#030712;
+    --gray:#6b7280;
+    --indigo:#4b0082;
+    --yellow:#ffff00;
+    --green:#17a34a;
+    --green-border:#0e9542;
+    --pink-bg:#fee2e2;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:Inter,"sans serif",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    background:#fff;
+    color:var(--ink);
+    display:flex;
+    justify-content:center;
+  }
+  #app{
+    width:100%;
+    max-width:448px;
+    min-height:100svh;
+    padding:12px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+  }
+  #topbar{
+    display:none;
+    align-items:center;
+    gap:12px;
+  }
+  #back-btn{
+    background:none;
+    border:none;
+    cursor:pointer;
+    color:var(--ink);
+    padding:4px;
+    display:flex;
+  }
+  #progress-track{
+    flex:1;
+    height:8px;
+    border-radius:999px;
+    background:var(--amber-track);
+    overflow:hidden;
+  }
+  #progress-fill{
+    height:100%;
+    width:0%;
+    background:var(--amber);
+    border-radius:999px;
+    transition:width .7s ease;
+  }
+  .screen{
+    display:none;
+    flex-direction:column;
+    gap:20px;
+    flex:1;
+  }
+  .screen.active{display:flex;}
+  h1.title{
+    font-size:32px;
+    font-weight:700;
+    text-align:center;
+    line-height:1.2;
+    margin:8px 0 0;
+  }
+  .lp-img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    border-radius:8px;
+  }
+  .btn-primary{
+    width:100%;
+    background:var(--amber);
+    color:#fff;
+    border:1px solid var(--amber);
+    border-radius:16px;
+    padding:14px 16px;
+    font-size:16px;
+    font-weight:500;
+    cursor:pointer;
+  }
+  .btn-primary:active{transform:scale(.99);}
+  .btn-green{
+    width:100%;
+    background:var(--green);
+    color:#fff;
+    border:1px solid var(--green-border);
+    border-radius:16px;
+    padding:16px;
+    font-size:16px;
+    font-weight:500;
+    cursor:pointer;
+  }
+  .btn-green:active{transform:scale(.99);}
+  .quiz-head{margin-top:24px;}
+  .opt-grid{display:grid;gap:12px;}
+  .opt-grid.cols-2{grid-template-columns:1fr 1fr;}
+  .opt-grid.cols-3{grid-template-columns:repeat(3,1fr);}
+  .opt-grid.cols-4{grid-template-columns:repeat(4,1fr);}
+  .opt-btn{
+    background:var(--amber);
+    color:#fff;
+    border:1px solid var(--amber);
+    border-radius:16px;
+    padding:14px 12px;
+    font-size:15px;
+    font-weight:600;
+    font-family:inherit;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    text-align:left;
+  }
+  .opt-btn:active{transform:scale(.98);}
+  .opt-icon{
+    width:20px;height:20px;flex:none;
+    border-radius:50%;
+    background:rgba(255,255,255,.22);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .opt-icon svg{width:11px;height:11px;}
+  #grid-mes .opt-btn, #grid-decada .opt-btn, #grid-ano .opt-btn{}
+  #grid-dia .opt-btn, #grid-decada .opt-btn, #grid-ano .opt-btn{justify-content:flex-start;}
+  label.field-label{font-weight:700;font-size:14px;}
+  input#input-nome{
+    width:100%;
+    border:1px solid rgba(64,64,64,.25);
+    border-radius:16px;
+    padding:14px 16px;
+    font-size:15px;
+    font-family:inherit;
+    color:var(--ink);
+  }
+  input#input-nome::placeholder{color:#9ca3af;font-style:italic;}
+  .alert-box{
+    background:var(--pink-bg);
+    border-radius:16px;
+    padding:16px;
+    font-size:14px;
+    line-height:1.5;
+    color:var(--gray);
+  }
+  .alert-box b{color:var(--ink);}
+  .resultado-wrap{text-align:center;gap:14px;display:flex;flex-direction:column;align-items:center;}
+  .resultado-nome{
+    font-size:28px;
+    font-weight:700;
+    color:var(--amber);
+    text-decoration:underline;
+  }
+  .triangulo-img{width:70%;max-width:260px;}
+  .numero-linha{font-size:17px;font-weight:700;margin:0;}
+  .numero-linha.red{color:#dc2626;}
+  .numero-linha.gold{color:var(--amber);}
+  .numero-linha.gray{color:var(--gray);}
+  #screen-loading{align-items:center;justify-content:center;text-align:center;gap:12px;}
+  #loading-pct{font-size:24px;font-weight:700;}
+  #loading-sub{color:var(--gray);font-size:14px;}
+  .vsl-headline{text-align:center;}
+  .vsl-headline .line{
+    display:block;
+    margin:0 auto 4px;
+  }
+  .vsl-headline span{
+    background:var(--indigo);
+    color:#fff;
+    font-size:22px;
+    font-weight:700;
+    line-height:1.35;
+    box-decoration-break:clone;
+    -webkit-box-decoration-break:clone;
+  }
+  .vsl-headline .y{color:var(--yellow);}
+  .vsl-sub{text-align:center;font-size:15px;color:var(--ink);}
+  #video-box{
+    width:100%;
+    border-radius:16px;
+    overflow:hidden;
+    background:#000;
+  }
+  #vsl-cta{
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .6s ease;
+  }
+  #vsl-cta.show{opacity:1;pointer-events:auto;}
+  .footer-space{height:8px;}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div id="topbar">
+    <button id="back-btn" aria-label="Voltar" onclick="goBack()">
+      <svg width="18" height="18" viewBox="0 0 448 512" fill="currentColor"><path d="M229.9 473.899l19.799-19.799c4.686-4.686 4.686-12.284 0-16.971L94.569 282H436c6.627 0 12-5.373 12-12v-28c0-6.627-5.373-12-12-12H94.569l155.13-155.13c4.686-4.686 4.686-12.284 0-16.971L229.9 38.101c-4.686-4.686-12.284-4.686-16.971 0L3.515 247.515c-4.686 4.686-4.686 12.284 0 16.971L212.929 473.9c4.686 4.686 12.284 4.686 16.971-.001z"></path></svg>
+    </button>
+    <div id="progress-track"><div id="progress-fill"></div></div>
+  </div>
+
+  <!-- LP -->
+  <section class="screen active" id="screen-lp">
+    <h1 class="title">Descubra seu Número Mestre</h1>
+    <img class="lp-img" src="assets/hero-lp.jpg" alt="">
+    <button class="btn-primary" onclick="goTo('mes')">DESCOBRIR MEU NÚMERO</button>
+  </section>
+
+  <!-- Q1: mes -->
+  <section class="screen" id="screen-mes">
+    <h1 class="title quiz-head">Selecione seu mês de Nascimento</h1>
+    <div class="opt-grid cols-2" id="grid-mes"></div>
+  </section>
+
+  <!-- Q2: dia -->
+  <section class="screen" id="screen-dia">
+    <h1 class="title quiz-head">Selecione seu dia de Nascimento</h1>
+    <div class="opt-grid cols-4" id="grid-dia"></div>
+  </section>
+
+  <!-- Q3: decada -->
+  <section class="screen" id="screen-decada">
+    <h1 class="title quiz-head">Selecione a Década do seu Nascimento</h1>
+    <div class="opt-grid cols-3" id="grid-decada"></div>
+  </section>
+
+  <!-- Q4: ano -->
+  <section class="screen" id="screen-ano">
+    <h1 class="title quiz-head">Selecione o Ano do seu Nascimento</h1>
+    <div class="opt-grid cols-3" id="grid-ano"></div>
+  </section>
+
+  <!-- Q5: nome -->
+  <section class="screen" id="screen-nome">
+    <h2 class="title quiz-head" style="font-size:24px;">Agora Digite Apenas seu Primeiro Nome</h2>
+    <div>
+      <label class="field-label" for="input-nome">Nome:</label>
+      <div style="height:8px;"></div>
+      <input id="input-nome" type="text" placeholder="Primeiro nome..." required>
+    </div>
+    <button class="btn-primary" onclick="submitNome()">Calcular energias</button>
+    <div class="alert-box"><b>SOMENTE</b> o seu primeiro nome, se digitar algo a mais que isso, vai dar errado o seu resultado.</div>
+  </section>
+
+  <!-- Resultado -->
+  <section class="screen" id="screen-resultado">
+    <div class="resultado-wrap">
+      <h1 style="font-size:26px;font-weight:700;margin:8px 0 0;">Números Invisíveis Bloqueando sua Vida</h1>
+      <div class="resultado-nome" id="nome-display"></div>
+      <img class="triangulo-img" src="assets/triangulo-resultado.png" alt="">
+      <div>
+        <p class="numero-linha red">Número 8 – Bloqueio Cármico</p>
+        <p class="numero-linha gold">Número 5 – Dificuldade Financeira</p>
+        <p class="numero-linha gray">Número 1 – Falta de Alta Confiança</p>
+      </div>
+      <button class="btn-green" onclick="startLoading()">DESBLOQUEAR NÚMEROS INVISÍVEIS</button>
+    </div>
+  </section>
+
+  <!-- Loading -->
+  <section class="screen" id="screen-loading">
+    <div id="loading-pct">Carregando... 0%</div>
+    <div id="loading-sub">Preparando o ritual para desbloqueio dos números ⏳</div>
+  </section>
+
+  <!-- VSL -->
+  <section class="screen" id="screen-vsl">
+    <h2 class="vsl-headline">
+      <span class="line"><span>🔒 Descubra o Ritual para</span></span>
+      <span class="line"><span class="y">Eliminar </span><span>os </span><span class="y">3 Números</span></span>
+      <span class="line"><span class="y">Invisíveis</span><span> HOJE.</span></span>
+    </h2>
+    <p class="vsl-sub">Assista esse vídeo com bastante atenção 👇👇</p>
+
+    <div id="video-box">
+      <vturb-smartplayer id="vid-6a8e530735870754625000c8" style="display: block; margin: 0 auto; width: 100%; max-width: 400px;"><div class="vturb-player-placeholder" style="position: relative; width: 100%; padding: 178.21782178217822% 0 0; z-index: 0; background-color: black;"></div></vturb-smartplayer>
+      <script type="text/javascript">
+        var s=document.createElement("script");
+        s.src="https://scripts.converteai.net/19ce3560-1531-4a62-b2a5-04a5634b39fc/players/6a8e530735870754625000c8/v4/player.js",
+        s.async=!0,document.head.appendChild(s);
+      </script>
+    </div>
+
+    <button class="btn-green" id="vsl-cta">SIM, QUERO MEU RITUAL AGORA</button>
+  </section>
+
+  <div class="footer-space"></div>
+</div>
+
+<script>
+  const state = { mes:'', dia:'', decada:'', ano:'', nome:'' };
+  const progressMap = { mes:13, dia:20, decada:33, ano:53, nome:73, resultado:87, loading:100, vsl:100 };
+  const historyStack = ['lp'];
+
+  const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  const decadas = [1940,1950,1960,1970,1980,1990,2000];
+
+  function radioIcon(){
+    return '<span class="opt-icon"></span>';
+  }
+  function arrowIcon(){
+    return '<span class="opt-icon"><svg viewBox="0 0 320 512" fill="#fff"><path d="M285.5 273l-152 143.1c-4.5 4.2-10.3 6.9-16.5 6.9-13.3 0-24-10.7-24-24V113c0-13.3 10.7-24 24-24 6.2 0 12 2.6 16.5 6.9L285.5 239c5 4.5 8.5 11.2 8.5 18s-3.5 13.5-8.5 18z"/></svg></span>';
+  }
+
+  function buildMesGrid(){
+    const g = document.getElementById('grid-mes');
+    meses.forEach(m=>{
+      const b = document.createElement('button');
+      b.className='opt-btn';
+      b.innerHTML = radioIcon() + '<span>'+m+'</span>';
+      b.onclick = ()=>{ state.mes = m; goTo('dia'); };
+      g.appendChild(b);
+    });
+  }
+  function buildDiaGrid(){
+    const g = document.getElementById('grid-dia');
+    for(let d=1; d<=31; d++){
+      const val = String(d).padStart(2,'0');
+      const b = document.createElement('button');
+      b.className='opt-btn';
+      b.innerHTML = arrowIcon() + '<span>'+val+'</span>';
+      b.onclick = ()=>{ state.dia = val; goTo('decada'); };
+      g.appendChild(b);
+    }
+  }
+  function buildDecadaGrid(){
+    const g = document.getElementById('grid-decada');
+    decadas.forEach(dec=>{
+      const b = document.createElement('button');
+      b.className='opt-btn';
+      b.style.justifyContent='center';
+      b.innerHTML = '<span>'+dec+'</span>';
+      b.onclick = ()=>{ state.decada = dec; buildAnoGrid(dec); goTo('ano'); };
+      g.appendChild(b);
+    });
+  }
+  function buildAnoGrid(decada){
+    const g = document.getElementById('grid-ano');
+    g.innerHTML = '';
+    for(let y = decada; y < decada+10; y++){
+      const b = document.createElement('button');
+      b.className='opt-btn';
+      b.style.justifyContent='center';
+      b.innerHTML = '<span>'+y+'</span>';
+      b.onclick = ()=>{ state.ano = y; goTo('nome'); };
+      g.appendChild(b);
+    }
+  }
+
+  function submitNome(){
+    const raw = document.getElementById('input-nome').value.trim();
+    if(!raw) return;
+    state.nome = raw.split(/\s+/)[0];
+    document.getElementById('nome-display').textContent = state.nome;
+    goTo('resultado');
+  }
+
+  function showScreen(id){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById('screen-'+id).classList.add('active');
+    document.getElementById('topbar').style.display = id==='lp' ? 'none' : 'flex';
+    document.getElementById('progress-fill').style.width = (progressMap[id]||0) + '%';
+  }
+  function goTo(id){
+    historyStack.push(id);
+    showScreen(id);
+  }
+  function goBack(){
+    if(historyStack.length>1){
+      historyStack.pop();
+      showScreen(historyStack[historyStack.length-1]);
+    }
+  }
+
+  function startLoading(){
+    goTo('loading');
+    let pct = 0;
+    const fill = document.getElementById('progress-fill');
+    const label = document.getElementById('loading-pct');
+    const timer = setInterval(()=>{
+      pct += Math.floor(Math.random()*12)+6;
+      if(pct>=100){
+        pct = 100;
+        clearInterval(timer);
+        setTimeout(()=>{
+          historyStack.pop();
+          goTo('vsl');
+          revealVslCta();
+        }, 350);
+      }
+      label.textContent = 'Carregando... ' + pct + '%';
+      fill.style.width = pct + '%';
+    }, 220);
+  }
+
+  const CTA_REVEAL_DELAY_MS = 6000; // segundos (em ms) até o botão verde aparecer depois que a página da VSL carrega — ajuste para bater com o ponto do seu vídeo onde quer revelar o CTA
+  function revealVslCta(){
+    setTimeout(()=>{
+      document.getElementById('vsl-cta').classList.add('show');
+    }, CTA_REVEAL_DELAY_MS);
+  }
+
+  buildMesGrid();
+  buildDiaGrid();
+  buildDecadaGrid();
+</script>
+</body>
+</html>
