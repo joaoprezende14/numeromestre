@@ -206,12 +206,6 @@
     overflow:hidden;
     background:#000;
   }
-  #vsl-cta{
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .6s ease;
-  }
-  #vsl-cta.show{opacity:1;pointer-events:auto;}
   .footer-space{height:8px;}
 </style>
 </head>
@@ -306,8 +300,6 @@
         s.async=!0,document.head.appendChild(s);
       </script>
     </div>
-
-    <button class="btn-green" id="vsl-cta">SIM, QUERO MEU RITUAL AGORA</button>
   </section>
 
   <div class="footer-space"></div>
@@ -411,19 +403,11 @@
         setTimeout(()=>{
           historyStack.pop();
           goTo('vsl');
-          revealVslCta();
         }, 350);
       }
       label.textContent = 'Carregando... ' + pct + '%';
       fill.style.width = pct + '%';
     }, 220);
-  }
-
-  const CTA_REVEAL_DELAY_MS = 6000; // segundos (em ms) até o botão verde aparecer depois que a página da VSL carrega — ajuste para bater com o ponto do seu vídeo onde quer revelar o CTA
-  function revealVslCta(){
-    setTimeout(()=>{
-      document.getElementById('vsl-cta').classList.add('show');
-    }, CTA_REVEAL_DELAY_MS);
   }
 
   buildMesGrid();
